@@ -31,11 +31,9 @@ public class MeetingRoomJob extends QuartzJobBean {
             randomKey = RandomUtil.randomLong(1L, 4294967295L);
         } while (redisTemplate.hasKey("meetingRoomKey" + randomKey));
 
-        // Set Redis entries with a random key and expiration time
         redisTemplate.opsForValue().set("meetingRoomKey" + randomKey, meetingRoomId);
         redisTemplate.expireAt("meetingRoomKey" + randomKey, expirationTime);
 
-        // Store additional data in Redis with meetingRoomId as the key
         redisTemplate.opsForValue().set(meetingRoomId, randomKey);
         redisTemplate.expireAt(meetingRoomId, expirationTime);
     }

@@ -57,10 +57,9 @@ public class WorkflowServiceImpl implements WorkflowService {
         return users;
     }
 
-    // Start the meeting process and return the process instance ID
     public String startMeetingProcess(HashMap<String, Object> formData) {
 //        String processInstanceId = runtimeService.startProcessInstanceByKey(ApprovalMeetingForm.MEETING_PROCESS_KEY, formData).getProcessInstanceId();
-//
+
 //        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId)
 //                .taskAssignee((String) formData.get(DeleteProcessByIdForm.ASSIGNEE))
 //                .singleResult();

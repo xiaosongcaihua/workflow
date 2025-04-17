@@ -22,13 +22,13 @@ import org.springframework.stereotype.Component;
 public class MeetingWorkflowJob extends QuartzJobBean {
 
     @Autowired
-    private MeetingService meetingService;  // Renamed from E
+    private MeetingService meetingService;
     @Autowired
-    private HistoryService historyService;  // Renamed from K
+    private HistoryService historyService;
     @Autowired
-    private RuntimeService runtimeService;  // Renamed from m
+    private RuntimeService runtimeService;
     @Autowired
-    private WorkflowService workflowService;  // Renamed from ALLATORIxDEMO
+    private WorkflowService workflowService;
 
     private static final Logger logger = LoggerFactory.getLogger(MeetingWorkflowJob.class);
 
