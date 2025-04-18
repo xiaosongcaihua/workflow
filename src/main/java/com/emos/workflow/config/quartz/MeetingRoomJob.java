@@ -23,8 +23,8 @@ public class MeetingRoomJob extends QuartzJobBean {
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
 
-        String meetingRoomId = jobDataMap.get("meetingRoomId").toString();
-        DateTime expirationTime = DateUtil.parse(jobDataMap.get("expirationTime").toString(), "yyyy-MM-dd HH:mm:ss");  // Example date format
+        String meetingRoomId = jobDataMap.get("uuid").toString();
+        DateTime expirationTime = DateUtil.parse(jobDataMap.get("startTime").toString(), "yyyy-MM-dd HH:mm:ss");  // Example date format
 
         long randomKey;
         do {

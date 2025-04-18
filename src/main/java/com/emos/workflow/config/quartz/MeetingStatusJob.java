@@ -27,12 +27,12 @@ public class MeetingStatusJob extends QuartzJobBean {
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
         
-        String meetingId = jobDataMap.get("meetingId").toString();
+        String meetingId = jobDataMap.get("uuid").toString();
         Integer status = (Integer) jobDataMap.get("status");
 
         HashMap<String, Object> updateData = new HashMap<>();
         updateData.put("status", status);
-        updateData.put("meetingId", meetingId);
+        updateData.put("uuid", meetingId);
 
         meetingService.updateMeetingStatus(updateData);
 
