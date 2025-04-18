@@ -40,25 +40,26 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public HashMap<String, Object> searchMeetingByInstanceId(String instanceId) {
-        HashMap<String, Object> meetingData = tbMeetingDao.searchMeetingByInstanceId(instanceId);
-//
-//        // Parsing meeting start date and time
-//        String startDateStr = (String) meetingData.get(ApprovalMeetingForm.ALLATORIxDEMO("]eMa"));
-//        String startTimeStr = (String) meetingData.get(ApprovalMeetingForm.ALLATORIxDEMO("wMeKp"));
-//        DateTime startDateTime = DateUtil.parse(startDateStr + ApprovalMeetingForm.ALLATORIxDEMO("$") + startTimeStr,
-//                ApprovalMeetingForm.ALLATORIxDEMO("@}@}\u0014It)]`\u0019Lq>Ti"));
-//
-//        // Calculating the time difference between start and end time
-//        String endTimeStr = (String) meetingData.get(ApprovalMeetingForm.ALLATORIxDEMO("aW`"));
-//        long hoursBetween = DateUtil.between(DateUtil.parse(startDateStr + ApprovalMeetingForm.ALLATORIxDEMO("$") + endTimeStr,
-//                ApprovalMeetingForm.ALLATORIxDEMO("@}@}\u0014It)]`\u0019Lq>Ti")),
-//                startDateTime, DateUnit.HOUR, true);
-//
-//        meetingData.put(ApprovalMeetingForm.ALLATORIxDEMO("lVqKw"), hoursBetween);
-//
-//        // Retrieving meeting members from the same department
-//        String departmentMembers = tbMeetingDao.searchMeetingMembersInSameDept(instanceId);
-//        meetingData.put(ApprovalMeetingForm.ALLATORIxDEMO("JeTa}aIp"), departmentMembers);
+        HashMap meetingData = tbMeetingDao.searchMeetingByInstanceId(instanceId);
+        if(meetingData == null) {
+            return null;
+        }
+        String startDateStr = meetingData.get("date").toString();
+        meetingData.put("date" , startDateStr);
+
+        String startTimeStr = meetingData.get("start").toString();
+        meetingData.put("start" , startTimeStr);
+        DateTime startDateTime = DateUtil.parse(startDateStr + " " + startTimeStr , "yyyy-MM-dd HH:mm:ss");
+
+        String endTimeStr = meetingData.get("end").toString();
+        long hoursBetween = DateUtil.between(DateUtil.parse(startDateStr + " " + endTimeStr),
+                startDateTime, DateUnit.HOUR, true);
+        meetingData.put("end" , endTimeStr);
+        meetingData.put("hours", hoursBetween);
+
+        // Retrieving meeting members from the same department
+        boolean sameDept = tbMeetingDao.searchMeetingMembersInSameDept(meetingData.get("uuid").toString());
+        meetingData.put("sameDept", sameDept);
 
         return meetingData;
     }

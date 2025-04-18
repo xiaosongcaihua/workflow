@@ -1,5 +1,6 @@
 package com.emos.workflow.util;
 
+import cn.hutool.http.HttpStatus;
 import com.emos.workflow.controller.form.ApprovalMeetingForm;
 import com.emos.workflow.controller.form.DeleteProcessByIdForm;
 
@@ -7,6 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class R extends HashMap<String, Object> {
+    public R (){
+        put("code", HttpStatus.HTTP_OK);
+        put("msg", "success");
+    }
 
     // Error response with custom code and message
     public static R error(int code, String message) {

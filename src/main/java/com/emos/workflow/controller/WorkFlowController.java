@@ -19,7 +19,7 @@ public class WorkFlowController {
     private WorkflowService workflowService;
 
     @PostMapping("/approvalMeeting")
-    public R approvalMeeting(@Valid @RequestBody ApprovalMeetingForm form) {
+    public R approvalMeeting( @RequestBody ApprovalMeetingForm form) {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("taskId", form.getTaskId());
@@ -29,14 +29,14 @@ public class WorkFlowController {
     }
 
     @PostMapping("/searchUserTaskListByPage")
-    public R searchUserTaskListByPage(@Valid @RequestBody SearchUserTaskListByPageForm form, @RequestHeader("token") String token) {
-        String errorMessage;
+    public R searchUserTaskListByPage( @RequestBody SearchUserTaskListByPageForm form) {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("userId", form.getUserId());
         params.put("page", form.getPage());
         params.put("length", form.getLength());
         params.put("type", form.getType());
+        params.put("token" , form.getToken());
 
         ArrayList result = workflowService.searchUserTaskListByPage(params);
         return R.ok().put("data", result);
@@ -50,7 +50,7 @@ public class WorkFlowController {
     }
 
     @PostMapping("/startMeetingProcess")
-    public R startMeetingProcess(@Valid @RequestBody StartMeetingProcessForm form) {
+    public R startMeetingProcess( @RequestBody StartMeetingProcessForm form) {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("openId", form.getOpenId());
@@ -61,9 +61,11 @@ public class WorkFlowController {
         params.put("gmId", form.getGmId());
         params.put("date", form.getDate());
         params.put("start", form.getStartTime());
-
+        params.put("creatorId" , form.getCreatorId());
+        params.put("identity" , form.getIdentity());
+        params.put("department" , form.getDepartment());
         String result = workflowService.startMeetingProcess(params);
-        return R.ok().put("data", result);
+        return R.ok().put("instanceId", result);
     }
 
     @PostMapping("/deleteProcessById")

@@ -34,8 +34,8 @@ public class MeetingWorkflowJob extends QuartzJobBean {
 
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-//        JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
-//
+        JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();
+
 //        // Extract values from jobDataMap
 //        String processId = jobDataMap.get(DeleteProcessByIdForm.getProcessIdKey()).toString();
 //        String processInstanceId = jobDataMap.get(ApprovalMeetingForm.getMeetingProcessInstanceIdKey()).toString();
